@@ -38,3 +38,6 @@ library_db.sql
 
 INSERT INTO students (student_first_name,student_last_name,student_course) VALUES ("MARK OHWEN", "TUDTUD", "BSIT");
 INSERT INTO students (student_first_name,student_last_name,student_course) VALUES ("SAMMUEL", "CARBON", "BSC");
+
+mysqldump -u root -p --databases library_db > D:\devs\IT30A\backups\lib4-2026_27_08_ 9_37_03_library_db.sql
+backups/lib4-2026_27_08_ 9_37_03_library_db.sql
