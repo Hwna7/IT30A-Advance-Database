@@ -14,33 +14,33 @@ SELECT
     student_last_name,
     student_first_name
 FROM students
-ORDER BY last_name ASC;
+ORDER BY student_last_name ASC;
 
 -- Student Query #5 - Select studentd order by last_name DESC
 SELECT 
-    students_first_name
+    student_first_name,
     student_last_name,
     student_first_name
 FROM students
-ORDER BY last_name DESC;
+ORDER BY student_last_name DESC;
 
 -- Student Query #6 - Select students order by first_name ASC
 SELECT 
-    students_last_name,
+    student_last_name,
     student_first_name
 FROM students
 ORDER BY student_first_name ASC;
 
 -- Student Query #7 - Select students order by last_name DESC
 SELECT 
-    students_first_name,
+    student_first_name,
     student_last_name
 FROM students
 ORDER BY student_first_name DESC;
 
 -- Student Query #8 - Select student with specific id number
 SELECT 
-    students_first_name,
+    student_first_name,
     student_last_name
 FROM students
 WHERE student_id = 1

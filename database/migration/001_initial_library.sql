@@ -98,4 +98,4 @@ INSERT INTO borrow (
 ) VALUES
     (1, 2),
     (2, 3),
-    (3, 4);
+    (3, 1);
