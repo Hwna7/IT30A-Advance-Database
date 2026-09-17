@@ -1,4 +1,4 @@
---student sql #1
+-- Student sql #1
 SELECT * FROM students;
 
 -- Student Query #2 - Select studentd order by id ASC
