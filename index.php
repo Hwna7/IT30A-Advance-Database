@@ -28,7 +28,7 @@ session_start();
 $section = $_GET['section'] ?? 'students';
 
 // CRUD Operations
-$actions = $_GET['action'] ?? '';
+$action = $_GET['action'] ?? '';
 
 //----------------------------------------------------------------------------
 //Students
@@ -43,6 +43,43 @@ if($section === 'students'){
     ");
 
     $students = $stmt->fetchAll();
+}
+
+// Create Student
+if($section==='students' && $action==='create'){
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        
+        $firstName = trim($_POST['student_first_name'] ?? '');
+        $lastName = trim($_POST['student_last_name'] ?? '');
+        $course = trim($_POST['student_course'] ?? '');
+
+        if($firstName !== '' && $lastName !==''&& $course!==''){
+
+            $sql=("
+                INSERT INTO students (
+                    student_first_name,
+                    student_last_name,
+                    student_course
+                )
+                VALUES (?,?,?)    
+            ");
+
+            $stmt = $pdo->prepare($sql);
+
+            $stmt->execute([
+                $firstName,
+                $lastName,
+                $course
+            ]);
+
+            $_SESSION['alert'] = 'Student Save Successfully';
+
+            header("Location: index.php?section=students");
+            exit;
+
+        }
+    }
 }
 
 
@@ -65,7 +102,58 @@ if($section === 'students'){
     <hr>
     <?php if($section==='students'): ?>
         <h1>Students</h1>
-        <table>
+        <p>
+            <a href="index.php?section=students&action=create">
+                Add Student
+            </a>
+        </p>
+
+        <?php if($action==='create'): ?>
+
+            <h2>Add Student</h2>
+
+            <form method="POST">
+                <p>
+                    <label>First Name</label>
+                    <br>
+                    <input type="text"
+                           name="student_first_name"
+                           require
+                    />
+                </p>
+                <p>
+                    <label>Last Name</label>
+                    <br>
+                    <input type="text"
+                           name="student_last_name"
+                           require
+                    />
+                </p>
+                <p>
+                    <label>Course</label>
+                    <br>
+                    <input type="text"
+                           name="student_course"
+                           require
+                    />
+                </p>
+
+                <button type="submit">
+                    Save
+                </button>
+
+                <a href="index.php?section=students">
+                    Cancel
+                </a>
+            </form>
+
+
+
+
+
+        <?php else: ?>
+
+            <table>
             <thead>
                 <tr>
                     <th>ID</th>
@@ -76,7 +164,7 @@ if($section === 'students'){
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody>
+                <tbody>
                 <?php foreach($students as $student): ?>
                     <tr>
                         <td>
@@ -101,19 +189,14 @@ if($section === 'students'){
                         </td>
                     </tr>
                 <?php endforeach ?>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        <?php endif; ?>
+
+        
     <?php endif; ?>
 
-    <?php if($section==='students'): ?>
-    <?php endif; ?>
-
-    <?php if($section==='books'): ?>
-        <h1>Books</h1>
-    <?php endif; ?>
-
-    <?php if($section==='borrow'): ?>
-        <h1>Borrow</h1>
-    <?php endif; ?>
+    
+    
 </body>
 </html>
